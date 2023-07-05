@@ -7,6 +7,8 @@ const morgan = require ('morgan')
 require("dotenv").config();
 require("ejs");
 const { sequelize } = require("./database/database");
+const rutas = require("./routes/routes");
+
 
 const app = express();
 
@@ -22,12 +24,15 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
-app.use('/api', require('./routes/reserva.routes'));
-
-// TODO: Si la petición no coincide con ninguna de las rutas declaradas, mostrar error 404
+app.use(rutas);
 
 // Starting the server
 app.listen(3000, () => console.log('Server on port xxxx'));
+
+
+
+// TODO: Si la petición no coincide con ninguna de las rutas declaradas, mostrar error 404
+
 
 //conexion a la base de datos
 sequelize
