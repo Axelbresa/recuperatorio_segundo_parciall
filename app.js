@@ -6,6 +6,7 @@ const path = require('path');
 const morgan = require ('morgan')
 require("dotenv").config();
 require("ejs");
+const { sequelize } = require("./database/database");
 
 const app = express();
 
@@ -27,3 +28,14 @@ app.use('/api', require('./routes/reserva.routes'));
 
 // Starting the server
 app.listen(3000, () => console.log('Server on port xxxx'));
+
+//conexion a la base de datos
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log("nos hemos conectado a la base de datos");
+  })
+  .catch((error) => {
+    console.log("se ha producido un error", error);
+  });
+
